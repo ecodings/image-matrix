@@ -382,7 +382,7 @@
             </div>
         </div>
         
-        <div class="sliders-container">
+                <div class="sliders-container">
             <div class="slider-section addition">
                 <h3>➕ 덧셈 연산</h3>
                 <div class="slider-container">
@@ -391,6 +391,13 @@
                         <span id="tValue">0</span>
                     </div>
                     <input type="range" id="additionSlider" min="-100" max="100" value="0">
+                    <div style="display: flex; justify-content: space-between; font-size: 11px; color: #666; margin-top: 5px; padding: 0 2px;">
+                        <span>-100</span>
+                        <span style="margin-left: -10px;">-50</span>
+                        <span style="margin-left: -5px;">0</span>
+                        <span style="margin-right: -10px;">+50</span>
+                        <span>+100</span>
+                    </div>
                 </div>
                 <div class="formula" id="additionFormula">
                     수식: R_new = R + 0, G_new = G + 0, B_new = B + 0
@@ -405,9 +412,13 @@
                         <span id="sValue">1.0</span>
                     </div>
                     <input type="range" id="multiplicationSlider" min="0" max="30" value="10" step="1">
-                    <div style="display: flex; justify-content: space-between; font-size: 11px; color: #666; margin-top: 5px;">
+                    <div style="display: flex; justify-content: space-between; font-size: 11px; color: #666; margin-top: 5px; padding: 0 2px;">
                         <span>0.0</span>
-                        <span>1.0</span>
+                        <span style="margin-left: -8px;">0.5</span>
+                        <span style="margin-left: -8px;">1.0</span>
+                        <span style="margin-left: -8px;">1.5</span>
+                        <span style="margin-left: -8px;">2.0</span>
+                        <span style="margin-left: -8px;">2.5</span>
                         <span>3.0</span>
                     </div>
                 </div>
@@ -767,4 +778,5 @@
         }
     </script>
 </body>
+
 </html>
