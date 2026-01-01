@@ -382,7 +382,7 @@
             </div>
         </div>
         
-                <div class="sliders-container">
+        <div class="sliders-container">
             <div class="slider-section addition">
                 <h3>➕ 덧셈 연산</h3>
                 <div class="slider-container">
@@ -428,64 +428,77 @@
             </div>
         </div>
         
-        <div class="matrix-section" id="matrixSection" style="display: none;">
+        <div class="matrix-section" id="matrixSection">
             <h3>📊 선택된 영역의 7×7 행렬 값 비교</h3>
-            <p style="color: #666; margin-bottom: 15px;">
-                💡 이미지를 클릭하면 해당 픽셀을 중심으로 7×7 영역의 RGB 행렬 값을 비교할 수 있습니다.
-            </p>
             
-            <div class="matrix-grid">
-                <div class="matrix-column">
-                    <h4>덧셈 변환 결과</h4>
-                    <div class="matrix-box r-channel">
-                        <h5>R 채널</h5>
-                        <table class="matrix-table" id="additionMatrixR"></table>
-                    </div>
-                    <div class="matrix-box g-channel">
-                        <h5>G 채널</h5>
-                        <table class="matrix-table" id="additionMatrixG"></table>
-                    </div>
-                    <div class="matrix-box b-channel">
-                        <h5>B 채널</h5>
-                        <table class="matrix-table" id="additionMatrixB"></table>
-                    </div>
-                </div>
-                
-                <div class="matrix-column">
-                    <h4>원본 이미지</h4>
-                    <div class="matrix-box r-channel">
-                        <h5>R 채널</h5>
-                        <table class="matrix-table" id="originalMatrixR"></table>
-                    </div>
-                    <div class="matrix-box g-channel">
-                        <h5>G 채널</h5>
-                        <table class="matrix-table" id="originalMatrixG"></table>
-                    </div>
-                    <div class="matrix-box b-channel">
-                        <h5>B 채널</h5>
-                        <table class="matrix-table" id="originalMatrixB"></table>
-                    </div>
-                </div>
-                
-                <div class="matrix-column">
-                    <h4>실수배 변환 결과</h4>
-                    <div class="matrix-box r-channel">
-                        <h5>R 채널</h5>
-                        <table class="matrix-table" id="multiplicationMatrixR"></table>
-                    </div>
-                    <div class="matrix-box g-channel">
-                        <h5>G 채널</h5>
-                        <table class="matrix-table" id="multiplicationMatrixG"></table>
-                    </div>
-                    <div class="matrix-box b-channel">
-                        <h5>B 채널</h5>
-                        <table class="matrix-table" id="multiplicationMatrixB"></table>
-                    </div>
-                </div>
+            <div id="clickPrompt" style="background: #e3f2fd; border: 2px solid #2196f3; border-radius: 10px; padding: 20px; margin-bottom: 20px; text-align: center;">
+                <p style="color: #1565c0; font-size: 16px; font-weight: bold; margin-bottom: 10px;">
+                    👆 위의 이미지를 클릭해보세요!
+                </p>
+                <p style="color: #1976d2; font-size: 14px;">
+                    이미지의 아무 곳이나 클릭하면 해당 픽셀을 중심으로 7×7 영역의 RGB 채널 행렬 값을 확인할 수 있습니다.<br>
+                    덧셈과 실수배 연산이 각 픽셀값을 어떻게 변화시키는지 직접 비교해보세요!
+                </p>
             </div>
             
-            <div class="info-box" id="exampleCalc" style="display: none;">
-                <strong>💡 중앙 픽셀 계산:</strong> <span id="calcExample"></span>
+            <div id="matrixContent" style="opacity: 0.3;">
+                <p style="color: #666; margin-bottom: 15px; text-align: center; font-style: italic;">
+                    💡 이미지를 클릭하면 해당 영역의 행렬 값이 표시됩니다
+                </p>
+                
+                <div class="matrix-grid">
+                    <div class="matrix-column">
+                        <h4>덧셈 변환 결과</h4>
+                        <div class="matrix-box r-channel">
+                            <h5>R 채널</h5>
+                            <table class="matrix-table" id="additionMatrixR"></table>
+                        </div>
+                        <div class="matrix-box g-channel">
+                            <h5>G 채널</h5>
+                            <table class="matrix-table" id="additionMatrixG"></table>
+                        </div>
+                        <div class="matrix-box b-channel">
+                            <h5>B 채널</h5>
+                            <table class="matrix-table" id="additionMatrixB"></table>
+                        </div>
+                    </div>
+                    
+                    <div class="matrix-column">
+                        <h4>원본 이미지</h4>
+                        <div class="matrix-box r-channel">
+                            <h5>R 채널</h5>
+                            <table class="matrix-table" id="originalMatrixR"></table>
+                        </div>
+                        <div class="matrix-box g-channel">
+                            <h5>G 채널</h5>
+                            <table class="matrix-table" id="originalMatrixG"></table>
+                        </div>
+                        <div class="matrix-box b-channel">
+                            <h5>B 채널</h5>
+                            <table class="matrix-table" id="originalMatrixB"></table>
+                        </div>
+                    </div>
+                    
+                    <div class="matrix-column">
+                        <h4>실수배 변환 결과</h4>
+                        <div class="matrix-box r-channel">
+                            <h5>R 채널</h5>
+                            <table class="matrix-table" id="multiplicationMatrixR"></table>
+                        </div>
+                        <div class="matrix-box g-channel">
+                            <h5>G 채널</h5>
+                            <table class="matrix-table" id="multiplicationMatrixG"></table>
+                        </div>
+                        <div class="matrix-box b-channel">
+                            <h5>B 채널</h5>
+                            <table class="matrix-table" id="multiplicationMatrixB"></table>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="info-box" id="exampleCalc" style="display: none;">
+                    <strong>💡 중앙 픽셀 계산:</strong> <span id="calcExample"></span>
+                </div>
             </div>
         </div>
     </div>
@@ -534,8 +547,9 @@
             document.getElementById('selectionBox2').style.display = 'none';
             document.getElementById('selectionBox3').style.display = 'none';
             
-            // 행렬 섹션 숨기기
-            document.getElementById('matrixSection').style.display = 'none';
+            // 클릭 프롬프트 표시
+            document.getElementById('clickPrompt').style.display = 'block';
+            document.getElementById('matrixContent').style.opacity = '0.3';
             
             // 슬라이더 초기화
             additionSlider.value = 0;
@@ -666,7 +680,11 @@
                 const rect = canvas.getBoundingClientRect();
                 selectedX = Math.floor((e.clientX - rect.left) * (canvas.width / rect.width));
                 selectedY = Math.floor((e.clientY - rect.top) * (canvas.height / rect.height));
-                document.getElementById('matrixSection').style.display = 'block';
+                
+                // 클릭 프롬프트 숨기고 행렬 콘텐츠 활성화
+                document.getElementById('clickPrompt').style.display = 'none';
+                document.getElementById('matrixContent').style.opacity = '1';
+                
                 updateMatrix();
                 updateSelectionBoxes();
             });
@@ -778,5 +796,4 @@
         }
     </script>
 </body>
-
 </html>
