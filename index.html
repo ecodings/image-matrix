@@ -86,17 +86,14 @@
             font-size: 16px;
         }
         
-.canvas-wrapper {
+        .canvas-wrapper {
             position: relative;
-            display: inline-block;  /* flex 제거 */
             border: 3px solid #ddd;
             border-radius: 10px;
             overflow: hidden;
             background: #f5f5f5;
             min-height: 300px;
-            /* display: flex; 삭제 */
-            /* align-items: center; 삭제 */
-            /* justify-content: center; 삭제 */
+            width: 100%;
         }
         
         .canvas-wrapper.empty {
@@ -107,9 +104,15 @@
                 #e0e0e0 10px,
                 #e0e0e0 20px
             );
-            display: flex;  /* empty일 때만 flex */
+            display: flex;
             align-items: center;
             justify-content: center;
+        }
+        
+        .canvas-wrapper canvas {
+            display: block;
+            width: 100%;
+            height: auto;
         }
         
         .placeholder {
@@ -681,8 +684,11 @@
         function setupClickEvent(canvas) {
             canvas.addEventListener('click', function(e) {
                 const rect = canvas.getBoundingClientRect();
-                selectedX = Math.floor((e.clientX - rect.left) * (canvas.width / rect.width));
-                selectedY = Math.floor((e.clientY - rect.top) * (canvas.height / rect.height));
+                const scaleX = canvas.width / rect.width;
+                const scaleY = canvas.height / rect.height;
+                
+                selectedX = Math.floor((e.clientX - rect.left) * scaleX);
+                selectedY = Math.floor((e.clientY - rect.top) * scaleY);
                 
                 // 클릭 프롬프트 숨기고 행렬 콘텐츠 활성화
                 document.getElementById('clickPrompt').style.display = 'none';
@@ -709,13 +715,15 @@
             
             canvases.forEach((canvas, idx) => {
                 const rect = canvas.getBoundingClientRect();
-                const scale = rect.width / canvas.width;
+                const scaleX = rect.width / canvas.width;
+                const scaleY = rect.height / canvas.height;
+                
                 const box = document.getElementById(boxes[idx]);
                 box.style.display = 'block';
-                box.style.left = (startX * scale) + 'px';
-                box.style.top = (startY * scale) + 'px';
-                box.style.width = (boxSize * scale) + 'px';
-                box.style.height = (boxSize * scale) + 'px';
+                box.style.left = (startX * scaleX) + 'px';
+                box.style.top = (startY * scaleY) + 'px';
+                box.style.width = (boxSize * scaleX) + 'px';
+                box.style.height = (boxSize * scaleY) + 'px';
             });
         }
         
@@ -800,4 +808,5 @@
     </script>
 </body>
 </html>
+
 
