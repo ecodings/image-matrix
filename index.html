@@ -1,0 +1,241 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>행렬 연산과 이미지 변환</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            min-height: 100vh;
+        }
+
+        .tab-container {
+            max-width: 1650px;
+            margin: 0 auto;
+            padding: 20px 20px 0;
+        }
+
+        .tab-header {
+            display: flex;
+            gap: 8px;
+            margin-bottom: 0;
+        }
+
+        .tab-btn {
+            flex: 1;
+            padding: 16px 24px;
+            border: none;
+            border-radius: 15px 15px 0 0;
+            cursor: pointer;
+            font-size: 16px;
+            font-weight: 600;
+            transition: all 0.3s ease;
+            color: white;
+            opacity: 0.7;
+            position: relative;
+            top: 4px;
+        }
+
+        .tab-btn:hover {
+            opacity: 0.9;
+            top: 2px;
+        }
+
+        .tab-btn.active {
+            opacity: 1;
+            top: 0;
+            box-shadow: 0 -5px 20px rgba(0,0,0,0.2);
+        }
+
+        /* 탭별 색상 */
+        .tab-btn[data-tab="1"] {
+            background: linear-gradient(135deg, #11998e 0%, #38ef7d 100%);
+        }
+
+        .tab-btn[data-tab="2"] {
+            background: linear-gradient(135deg, #f093fb 0%, #f5576c 100%);
+        }
+
+        .tab-btn[data-tab="3"] {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+        }
+
+        .tab-content {
+            background: white;
+            border-radius: 0 0 20px 20px;
+            box-shadow: 0 20px 60px rgba(0,0,0,0.3);
+            overflow: hidden;
+        }
+
+        .tab-pane {
+            display: none;
+        }
+
+        .tab-pane.active {
+            display: block;
+        }
+
+        iframe {
+            width: 100%;
+            height: calc(100vh - 100px);
+            min-height: 800px;
+            border: none;
+            display: block;
+        }
+
+        /* 로딩 표시 */
+        .loading {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            height: calc(100vh - 100px);
+            min-height: 800px;
+            background: #f5f5f5;
+            color: #666;
+            font-size: 18px;
+        }
+
+        .loading::after {
+            content: '';
+            width: 24px;
+            height: 24px;
+            margin-left: 12px;
+            border: 3px solid #ddd;
+            border-top-color: #667eea;
+            border-radius: 50%;
+            animation: spin 1s linear infinite;
+        }
+
+        @keyframes spin {
+            to { transform: rotate(360deg); }
+        }
+
+        /* 반응형 */
+        @media (max-width: 768px) {
+            .tab-container {
+                padding: 10px 10px 0;
+            }
+
+            .tab-btn {
+                padding: 12px 8px;
+                font-size: 13px;
+            }
+
+            iframe {
+                height: calc(100vh - 80px);
+                min-height: 600px;
+            }
+        }
+
+        @media (max-width: 480px) {
+            .tab-header {
+                flex-direction: column;
+                gap: 4px;
+            }
+
+            .tab-btn {
+                border-radius: 10px;
+                top: 0 !important;
+            }
+
+            .tab-content {
+                border-radius: 15px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="tab-container">
+        <div class="tab-header">
+            <button class="tab-btn active" data-tab="1">
+                📊 행렬의 덧셈 (밝기 조절)
+            </button>
+            <button class="tab-btn" data-tab="2">
+                ✖️ 행렬의 실수배 (명암 대비)
+            </button>
+            <button class="tab-btn" data-tab="3">
+                🔄 덧셈 vs 실수배 비교
+            </button>
+        </div>
+
+        <div class="tab-content">
+            <div class="tab-pane active" data-tab="1">
+                <div class="loading" id="loading1">로딩 중</div>
+                <iframe 
+                    id="frame1" 
+                    src="https://ecodings.github.io/image-matrix1/index.html"
+                    onload="document.getElementById('loading1').style.display='none'"
+                    style="display:none"
+                ></iframe>
+            </div>
+
+            <div class="tab-pane" data-tab="2">
+                <div class="loading" id="loading2">로딩 중</div>
+                <iframe 
+                    id="frame2" 
+                    data-src="https://ecodings.github.io/image-matrix2/index.html"
+                    onload="if(this.src) document.getElementById('loading2').style.display='none'"
+                    style="display:none"
+                ></iframe>
+            </div>
+
+            <div class="tab-pane" data-tab="3">
+                <div class="loading" id="loading3">로딩 중</div>
+                <iframe 
+                    id="frame3" 
+                    data-src="https://ecodings.github.io/image-matrix3/index.html"
+                    onload="if(this.src) document.getElementById('loading3').style.display='none'"
+                    style="display:none"
+                ></iframe>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        const tabBtns = document.querySelectorAll('.tab-btn');
+        const tabPanes = document.querySelectorAll('.tab-pane');
+        const frames = {
+            1: document.getElementById('frame1'),
+            2: document.getElementById('frame2'),
+            3: document.getElementById('frame3')
+        };
+
+        // 첫 번째 탭 iframe 표시
+        frames[1].style.display = 'block';
+
+        tabBtns.forEach(btn => {
+            btn.addEventListener('click', () => {
+                const tabNum = btn.dataset.tab;
+
+                // 탭 버튼 활성화
+                tabBtns.forEach(b => b.classList.remove('active'));
+                btn.classList.add('active');
+
+                // 탭 패널 활성화
+                tabPanes.forEach(pane => {
+                    if (pane.dataset.tab === tabNum) {
+                        pane.classList.add('active');
+                    } else {
+                        pane.classList.remove('active');
+                    }
+                });
+
+                // 지연 로딩: 처음 클릭 시 iframe src 설정
+                const frame = frames[tabNum];
+                if (frame.dataset.src && !frame.src) {
+                    frame.src = frame.dataset.src;
+                    frame.style.display = 'block';
+                }
+            });
+        });
+    </script>
+</body>
+</html>
