@@ -67,7 +67,9 @@
         .tab-btn[data-tab="3"] {
             background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
         }
-
+        .tab-btn[data-tab="4"] {
+            background: linear-gradient(135deg, #11998e 0%, #38ef7d 100%);
+        }
         .tab-content {
             background: white;
             border-radius: 0 0 20px 20px;
@@ -164,6 +166,9 @@
             <button class="tab-btn" data-tab="3">
                 🔄 덧셈 vs 실수배 비교
             </button>
+            <button class="tab-btn" data-tab="4">
+                🎨 RGB 채널 실수배 합성
+            </button>
         </div>
 
         <div class="tab-content">
@@ -196,6 +201,15 @@
                     style="display:none"
                 ></iframe>
             </div>
+            <div class="tab-pane" data-tab="4">
+                <div class="loading" id="loading4">로딩 중</div>
+                <iframe 
+                    id="frame4" 
+                    data-src="https://ecodings.github.io/color_RGB/"
+                    onload="if(this.src) document.getElementById('loading4').style.display='none'"
+                    style="display:none"
+                ></iframe>
+            </div>
         </div>
     </div>
 
@@ -205,7 +219,8 @@
         const frames = {
             1: document.getElementById('frame1'),
             2: document.getElementById('frame2'),
-            3: document.getElementById('frame3')
+            3: document.getElementById('frame3'),
+            4: document.getElementById('frame4')
         };
 
         // 첫 번째 탭 iframe 표시
